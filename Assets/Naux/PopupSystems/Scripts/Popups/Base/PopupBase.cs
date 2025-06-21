@@ -104,6 +104,21 @@ namespace N.PopupSystems
             PopupState = PopupState.Closed;
         }
 
+        protected void UpdateCanvas(RectTransform[] listRect)
+        {
+            if (listRect != null) OnUpdateCanvas(listRect);
+        }
+
+        protected async void OnUpdateCanvas(RectTransform[] listRect)
+        {
+            for (var i = 0; i < listRect.Length; i++)
+            {
+                LayoutRebuilder.ForceRebuildLayoutImmediate(listRect[i]);
+                await UniTask.Yield();
+                LayoutRebuilder.ForceRebuildLayoutImmediate(listRect[i]);
+            }
+        }
+
         protected void CloseSelf(UnityAction cbAfterHide) => popupHandler.HidePopupType(PopupType, cbAfterHide).Forget();
 
         protected virtual void OnDestroy()

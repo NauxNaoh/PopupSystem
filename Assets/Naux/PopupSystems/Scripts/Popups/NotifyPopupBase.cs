@@ -52,20 +52,5 @@ namespace N.PopupSystems
             _confirmCB = null;
             CloseSelf(null);
         }
-
-        public void UpdateCanvas(RectTransform[] listRect)
-        {
-            if (listRect != null) OnUpdateCanvas(listRect);
-        }
-
-        async void OnUpdateCanvas(RectTransform[] listRect)
-        {
-            for (var i = 0; i < listRect.Length; i++)
-            {
-                LayoutRebuilder.ForceRebuildLayoutImmediate(listRect[i]);
-                await Awaitable.EndOfFrameAsync();
-                LayoutRebuilder.ForceRebuildLayoutImmediate(listRect[i]);
-            }
-        }
     }
 }
